@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { useState } from 'react';
-import { StyleSheet, Text, View, Button, TextInput} from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, ScrollView, FlatList} from 'react-native';
 
 
 export default function App(callbackfn, thisArg) {
@@ -15,7 +15,9 @@ export default function App(callbackfn, thisArg) {
     };
 
     const addGoalHandler = () => {
-        setListedGoals(currentGoals => [...currentGoals, enteredGoal]);
+        setListedGoals(currentGoals => [...currentGoals,
+            { id: Math.random().toString(), value: enteredGoal }
+            ]);
     };
 
 
@@ -28,11 +30,17 @@ export default function App(callbackfn, thisArg) {
             onChangeText={goalInputHandler}
             value={enteredGoal}
         />
-        <Button title = "Add" onPress={addGoalHandler}/>
+        <Button title = "ADD" onPress={addGoalHandler}/>
         </View>
-        <View>
-            {listedGoals.map((goal) => <Text key={goal}>{goal}</Text>)}
-        </View>
+        <FlatList
+            keyExtractor={(item, index) => item.id}
+            data={listedGoals}
+            renderItem={itemData => (
+                <View style={styles.listItem}>
+                    <Text>{itemData.item.value}</Text>
+                </View>
+            )}
+        />
     </View>
   );
 }
@@ -53,5 +61,12 @@ const styles = StyleSheet.create({
         borderColor: 'black',
         borderWidth: 1,
         padding: 10
+    },
+    listItem: {
+        padding: 10,
+        marginVertical: 10,
+        backgroundColor: '#ccc',
+        borderColor: 'black',
+        borderWidth: 1
     }
 });

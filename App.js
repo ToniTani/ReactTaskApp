@@ -31,7 +31,7 @@ export default function App(callbackfn, thisArg) {
         <Button title = "Add" onPress={addGoalHandler}/>
         </View>
         <View>
-            {listedGoals.map((goal) => <Text>{goal}</Text>)}
+            {listedGoals.map((goal) => <Text key={goal}>{goal}</Text>)}
         </View>
     </View>
   );
@@ -41,8 +41,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#40d6ff',
-        alignItems: 'center',
-        justifyContent: 'center',
         padding: 50
     },
     inputContainer: {

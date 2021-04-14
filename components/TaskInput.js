@@ -23,11 +23,15 @@ const TaskInput = props => {
                 value={enteredGoal}
             />
             <View style={styles.buttonsContainer}>
+                <View style={styles.button}>
+                    <Button title="CANCEL" color="red" onPress={props.onCancel}/>
+                </View>
+                <View style={styles.button}>
+                    <Button title ="ADD" onPress={addTaskHandler}/>
+                </View>
 
-                <View><Button title="CANCEL" color="red" onPress={props.onCancel}/></View>
-                <View><Button title ="ADD" onPress={addTaskHandler} /> </View>
+                </View>
             </View>
-        </View>
         </Modal>
     );
 };
@@ -52,5 +56,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around',
         width: '60%'
+    },
+    button: {
+        width:'40%'
     }
 });

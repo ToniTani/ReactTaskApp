@@ -14,19 +14,23 @@ export default function App(callbackfn, thisArg) {
         setListedGoals(currentGoals => [...currentGoals,
             { id: Math.random().toString(), value: taskName }
             ]);
+        setAddMode(false);
     };
 
     const removeTaskHandler = taskId => {
         setListedGoals(currentTasks => {
-            return currentTasks.filter((task) => task.id !== taskId);
+            return currentTasks.filter(task => task.id !== taskId);
         });
     };
 
+    const cancelTaskAdd = () => {
+        setAddMode(false);
+    };
 
     return (
     <View style={styles.container}>
-        <Button title="Add New Task" onPress={setAddMode.true}/>
-        <TaskInput visible={isAddMode} onAddGoal={addGoalHandler}/>
+        <Button title="Add New Task" onPress={() => setAddMode(true)}/>
+        <TaskInput visible={isAddMode} onAddGoal={addGoalHandler} onCancel={cancelTaskAdd}/>
         <FlatList
             keyExtractor={(item, index) => item.id}
             data={listedGoals}
